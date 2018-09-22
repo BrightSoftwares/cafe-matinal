@@ -1,11 +1,11 @@
 #!/bin/bash
 
-if [ "$TRAVIS_BRANCH" != "staged" ]; then
-    echo "This is not the staged branch. No merge."
+if [ "$TRAVIS_BRANCH" != "cafe" ]; then
+    echo "This is not the cafe branch. No merge."
     exit 0;
 fi
 
-echo "We are on the staged branch. Merging to master."
+echo "We are on the cafe branch. Merging to master."
 echo "Travis commit: $TRAVIS_COMMIT. Travis repo slug: $TRAVIS_REPO_SLUG"
 git config --global user.email 'full3right@gmail.com'
 git config --global user.name 'Full Bright'
