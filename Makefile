@@ -4,7 +4,10 @@ keystore:
 	@read -p "Enter key password: " keypwd; \
 	@read -p "Enter store password: " storepwd; \
 	@read -p "Enter alias name: " aliasname; \
-	keytool -genkey -keystore cafematinal_keystore.jks -keyalg RSA -keysize 4096 -validity 10000 -alias $$aliasname -storepass $$storepwd -keypass $$keypwd -dname "CN=a" -noprompt
+	keytool -genkey -keystore cafematinal_keystore.jks -keyalg RSA -keysize 4096 -validity 10000 -alias $$aliasname -storepass $$storepwd -keypass $$keypwd -dname "CN=a" -noprompt; \
+	# Tell travis to connect to the travisci.com endpoint.
+	travis endpoint --com --set-default; \
+	travis encrypt-file cafematinal_keystore.jks --add;
 
 committravis:
 	@read -p "Enter commit message: " cmsg; \

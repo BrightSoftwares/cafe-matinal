@@ -13,20 +13,11 @@ android:
 services:
 - docker
 before_install:
-- openssl aes-256-cbc -K $encrypted_72967de223a5_key -iv $encrypted_72967de223a5_iv
-  -in cafematinal_keystore.jks.enc -out cafematinal_keystore.jks -d
-- openssl aes-256-cbc -K $encrypted_821ed9edb936_key -iv $encrypted_821ed9edb936_iv
-  -in cafematinal_keystore.jks.enc -out cafematinal_keystore.jks -d
-- ls -la $TRAVIS_BUILD_DIR
-- ls -la $HOME
-- jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore cafematinal_keystore.jks
-  -storepass $store_password -keypass $keystore_password test-release-unsigned.apk
-  $keystore_alias
-- jarsigner -verify test-release-unsigned.apk
-- "${ANDROID_HOME}/build-tools/24.0.2/zipalign -v 4 test-release-unsigned.apk test_app.apk"
 - echo "Executing the before install commands"
 - docker pull marcoturi/ionic
-- git clone https://github.com/BrightSoftwares/derpupl_cafe_matinal.git
+- openssl aes-256-cbc -K $encrypted_72967de223a5_key -iv $encrypted_72967de223a5_iv
+  -in cafematinal_keystore.jks.enc -out cafematinal_keystore.jks -d
+- git clone https://github.com/BrightSoftwares/cafe-matinal.git
 - docker ps -a
 script:
 - echo "Executing release commands"
