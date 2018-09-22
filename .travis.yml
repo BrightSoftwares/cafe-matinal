@@ -1,80 +1,68 @@
-# Tutorial here: https://medium.com/@harmittaa/travis-ci-android-example-357f6e632fc4
-
-language: android
+branches:
+  only:
+  - master
+  - cafe
 sudo: required
-jdk: oraclejdk8
-
-before_cache:
- - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
- - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-
-cache:
- directories:
- - $HOME/.gradle/caches/
- - $HOME/.gradle/wrapper/
-
-env:
- global:
- - ANDROID_API=24
- - EMULATOR_API=21
- - ANDROID_BUILD_TOOLS=24.0.2
- - ADB_INSTALL_TIMEOUT=5 # minutes
- - secure: "kYQFW12wY9zzMNqtor4sTeE4k/877t0igpS/AaPon7MNr+ebqEkeg9z6L1sE+81bopDX+0K62AxO4mKVxOiGGGVU5JS1ZFWg/BhPyKCThm1tUzXCBs5s8AxWU9s9MudfTHgPLwsOhvpKogivA0ZXt5iEFrkv57A51qZFMQ0Irl8iAaMiwjzv+FRT26jCCBCKB5jlRwocwOB7wEujlUN289i5y9o/wcWhBmA5YY7y64hdlZEs/bmF7RXXFpsRzmpvcm9rbnffBfSgDXAmnM1U7S9BLNgxtEoXraXlVlejnkti8+7aBmAqbQTto69eLPJlnGZ917BQLuhPqdapMNvLOwGP/CUVkzAMYsIndQafJsleRTYIRTlH2I+/ZMmaCZVUE4dxO97j1Nrbbksqb5zTzxKVJjgF5FpgZoa8KZeKh5TvFzWP5ZON53UcKM34J2D9juV6iNt34yffYq5OPkCblDHPiL9SbK01fGYlgVhdO9w9O/D+ybdsPC32syHnQgNQTH7GZlIJdJzamv9dN4zB/Hqk3LlECMHXWdYxCP/2EnEIFWO9P0TPw+Fb2B0t7hi/8ksvd7O2PaK3JL9i39prR4ZGeNkrJ3EmmM4dOV8CVZpTLrx+FshHgEszkmkn/nuiMrEqdz/4LK0fRsPLXkr9RFd2HJGrW6ng/lPYkVBT60w="
- - secure: "0Pm10LgXvYeSTGpK6QD3+BCMQv2C5OrBubk67im9R1r9HnxBViyGihZrnOzOdUDnP/j3VwCiuRmWBjmXVmG3c1K+vSpba14H3G9FFKQAwaXcKx3fsMVrXc2NFINjwL8tjKYWAQOPrXC2c1GDQiPOYgWP0YNK17UkAX0nRDZ7nCXZRvlG9xV+TF7lHKgsg7Twjp9hvXZaPJYnGPSyuko6JkBtuGstdptaO7OjfaRCrotiWT848Q/KzOQdVAzTmxMARInMRMXEP+XFkzEh7MKCx1rfz6xVvnA4iTEK8XHmk+/iqpTMFRHr2TpfT0QAF/+4hBpnJ6460ySqybUYd5kgJap+v+lL6w3s8o6gISR6m7YltqelwDeku51ZmgDtOPVmsfJIAd+XQ0SwD0gYd8r//wnNPKssGoGgDqp56g9lVlhzo9ZAkRk2PZh+o8G6vZpARIPnG2a/ENx8tC4QqoiGoR4swrgqDtqU6eruB0dfoNkkr+RiNTKsfJPs4ktQ31dF/qRJW/uLHSPWWrzonn2TE2+wf4pq1lYXadGfl+GhMcuXxTaWP9mEviS2BliGwVHQ8hn2yI40dXfIjZ0yZJPujQfRW/9tbAuKPGFdUm8RcglOpHOdNczMnodq0WfkbIVi/ohYEWmlK8LLvrhafNsevy+gP+c2Fqxw5mI3WnY/T1o="
-
+language: android
 android:
- components:
- - tools
- - platform-tools
- - build-tools-$ANDROID_BUILD_TOOLS
- - android-$ANDROID_API
- - android-$EMULATOR_API_LEVEL
- - extra-google-m2repository
- - extra-android-m2repository # for design library
- - addon-google_apis-google-19 # google play services
- - sys-img-armeabi-v7a-addon-google_apis-google-$ANDROID_API_LEVEL
- - sys-img-armeabi-v7a-addon-google_apis-google-$EMULATOR_API_LEVEL
-
- licenses:
- - android-sdk-preview-license-.+
- - android-sdk-license-.+
- - google-gdk-license-.+
-
+  components:
+  - tools
+  - build-tools-24.0.2
+  - android-26
+  - tools
+services:
+- docker
 before_install:
-- openssl aes-256-cbc -K $encrypted_c0801aa05af4_key -iv $encrypted_c0801aa05af4_iv -in example_keystore.jks.enc -out example_keystore.jks -d
-- mkdir "$ANDROID_HOME/licenses" || true
-- echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
-- echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
-- chmod +x gradlew
-- ./gradlew dependencies || true # DON'T ADD unless you are getting "Install missing components using SDK manager"
-#Source: https://medium.com/@oldergod/constraint-layout-and-circleci-travis-d50342696d2
-
-before_script:
-- echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
-- emulator -avd test -no-skin -no-audio -no-window &
-- android-wait-for-emulator
-- adb shell input keyevent 82 &
-
+- openssl aes-256-cbc -K $encrypted_72967de223a5_key -iv $encrypted_72967de223a5_iv
+  -in cafematinal_keystore.jks.enc -out cafematinal_keystore.jks -d
+- openssl aes-256-cbc -K $encrypted_821ed9edb936_key -iv $encrypted_821ed9edb936_iv
+  -in cafematinal_keystore.jks.enc -out cafematinal_keystore.jks -d
+- ls -la $TRAVIS_BUILD_DIR
+- ls -la $HOME
+- jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore cafematinal_keystore.jks
+  -storepass $store_password -keypass $keystore_password test-release-unsigned.apk
+  $keystore_alias
+- jarsigner -verify test-release-unsigned.apk
+- "${ANDROID_HOME}/build-tools/24.0.2/zipalign -v 4 test-release-unsigned.apk test_app.apk"
+- echo "Executing the before install commands"
+- docker pull marcoturi/ionic
+- git clone https://github.com/BrightSoftwares/derpupl_cafe_matinal.git
+- docker ps -a
 script:
-- "./gradlew clean build connectedCheck -PdisablePreDex --stacktrace"
-
+- echo "Executing release commands"
+- docker run -v $TRAVIS_BUILD_DIR:/myApp:rw marcoturi/ionic /bin/sh -c "cd /myApp;
+  npm install; ionic cordova build android --prod --release"
+- docker ps -a
+- echo "we are in the directory $PWD and the Travis build directory is $TRAVIS_BUILD_DIR
+  "
+- ls -la $PWD
+- ls -la $TRAVIS_BUILD_DIR
+after_success:
+- "./travis_merge_script.sh"
 before_deploy:
-- cp $TRAVIS_BUILD_DIR/example_keystore.jks $HOME
-- cd app/build/outputs/apk/
-- jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/example_keystore.jks -storepass $storepass -keypass $keypass app-release-unsigned.apk ExampleKeystoreAlias
-
-# Verification
-- jarsigner -verify app-release-unsigned.apk
-- "${ANDROID_HOME}/build-tools/24.0.2/zipalign -v 4 app-release-unsigned.apk TravisExample.apk"
-
+- git tag "cafe-matinal-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
+- ls -la $PWD
+- ls -la $TRAVIS_BUILD_DIR
+- ls -la $TRAVIS_BUILD_DIR/platforms/android/app/build/outputs/apk/release/
+- cp $TRAVIS_BUILD_DIR/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk
+  $TRAVIS_BUILD_DIR/cafematinal-release-unsigned.apk
+- ls -la $TRAVIS_BUILD_DIR
+- ls -la $TRAVIS_BUILD_DIR/platforms/android/app/build/outputs/apk/release/
+- jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore cafematinal_keystore.jks
+  -storepass $store_password -keypass $keystore_password cafematinal-release-unsigned.apk
+  $keystore_alias
+- jarsigner -verify cafematinal-release-unsigned.apk
+- "${ANDROID_HOME}/build-tools/24.0.2/zipalign -v 4 cafematinal-release-unsigned.apk
+  cafematinal_app.apk"
 deploy:
   provider: releases
-  file: TravisExample.apk
-  skip_cleanup: true
-
-  on:
-    repo: harmittaa/travis-example-android
-    tags: true
-    jdk: oraclejdk8
   api_key:
-    secure: "ShxzZffSJIrdwKSLbyBl8u9GLjo7kAT0a1FkAeD187qSZV4rUqM/tvNDeH6ySR/YxLvRg/UyfGyidcmh1z98heq5aBCfZj3xHn8rLi8HBfrTsMFs/NqhnJXKVzjbEGHe3hw9XghPV1QqWkZl9DGb5Bgptpz0wuF9m9X3C5ywKBFUdLbIKKgwv/6Qx3ByROECndKvkhwtNdXcO3NVPm68TIuGU5AMhyNFhbyattyDY8TyCDnSOQXoFSto71lYyKY5WafFiS4b92HgIHTZxOV2FBnWIaHTIDKdtHcBj/eNYRVb8CVjjxu2xoBcmgWVtxl/04RDq+mZX/lZuLLyIN0UN0h9Zj0Ks9ywmWRQQYKPm2qMJeCBDpBAqXTU6m0AeY3CdHTwvM4lx5gAO/exBe257Dk+TpvUdVH1auu9df3V7ERgfOkoUC9bRyy1E/kzK7p5dtEoyIJtGq+dqL5iMvaDbmrqFpUxtPShJupaaXHiSjD1gcusd+r7BklpbAWIDoLm7q3iuOzA/L86fB7VGkTOUaVYpJQ2AJRx8GfqcxxDAzQDfW7Ev7qsQmjUMjE1ck1XVlZmXgMmvCgnAve9yph0mPPma6iHsaocoE9SDJi07x6NFVfAEWLQupZufYBCsc8VCFUDrx2g/YsxoAecF+AEPkQ45eG9YRp2r6nayB1S864="
+    secure: PRdw/zavHXzGNK4wuJunotQMxQb3s/Qwkvb8YQXLX78avaIyFKa7awYWXqb+tCYkiik2RwE6Bbx4ZQxMs/0NUgKbtMJMLPIVh0hqtHG4kfim4CAORL02MbeP0txS6FAkqLUxBtdCD5TzNUBMK4P2zZexLwgMkP5VjlWFvQl2X4ZkTvknbq2h/O3VHJiTXJtL39sRi5Vo9Xo6bRtkD1+khpNYUSe3UKxKRdPBATT7vkZiFhk5l4Z292nRlR4ZjXi+vPRj8N/LW06hAW3mwVrHl12JlNPiuPg3A3jKkJzmBMQ+MRVM9qRLF7Mag0g/t/2FloSJ3EU2FzRIjk92bRA0ks7/TVC3MLZ26xWndfMG8feiD/R2uc6NPGpxb8uevhYbCd26i3yVS7ebOSgJWQ/bF1lSve9A4zG4T33hcOzKsFovEIPtVPuqPZIq66QSvqgZPqrLCYlTnXoU/fdhPEt+4f+27wBhL6SO8m5mPuXfGrzTmB+PREzPlLq7f3QZIXI/z19R5mrU7EmzIo8fG6trW6b/c6xzwi3FRSw+UNa4Xr2mu1Ul/qISbPpuuy454MPsH3e9XZJh6wsZqgS6ClT6sf793Dy8Baz5SHBIU/7CPgZNuZRgzMrYlKSB5bb/EUqu3GKD2YR+/2Ms26cL+gN+7kt1LSII+rMoiBtoON8wp00=
+  file:
+  - "$TRAVIS_BUILD_DIR/cafematinal-release-unsigned.apk"
+  - "$TRAVIS_BUILD_DIR/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk"
+  - "$TRAVIS_BUILD_DIR/cafematinal_app.apk"
+  - "$TRAVIS_BUILD_DIR/test_app.apk"
+  skip_cleanup: true
+  on:
+    repo: BrightSoftwares/cafe_matinal
