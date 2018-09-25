@@ -50,10 +50,10 @@ deploy:
   api_key:
     secure: PRdw/zavHXzGNK4wuJunotQMxQb3s/Qwkvb8YQXLX78avaIyFKa7awYWXqb+tCYkiik2RwE6Bbx4ZQxMs/0NUgKbtMJMLPIVh0hqtHG4kfim4CAORL02MbeP0txS6FAkqLUxBtdCD5TzNUBMK4P2zZexLwgMkP5VjlWFvQl2X4ZkTvknbq2h/O3VHJiTXJtL39sRi5Vo9Xo6bRtkD1+khpNYUSe3UKxKRdPBATT7vkZiFhk5l4Z292nRlR4ZjXi+vPRj8N/LW06hAW3mwVrHl12JlNPiuPg3A3jKkJzmBMQ+MRVM9qRLF7Mag0g/t/2FloSJ3EU2FzRIjk92bRA0ks7/TVC3MLZ26xWndfMG8feiD/R2uc6NPGpxb8uevhYbCd26i3yVS7ebOSgJWQ/bF1lSve9A4zG4T33hcOzKsFovEIPtVPuqPZIq66QSvqgZPqrLCYlTnXoU/fdhPEt+4f+27wBhL6SO8m5mPuXfGrzTmB+PREzPlLq7f3QZIXI/z19R5mrU7EmzIo8fG6trW6b/c6xzwi3FRSw+UNa4Xr2mu1Ul/qISbPpuuy454MPsH3e9XZJh6wsZqgS6ClT6sf793Dy8Baz5SHBIU/7CPgZNuZRgzMrYlKSB5bb/EUqu3GKD2YR+/2Ms26cL+gN+7kt1LSII+rMoiBtoON8wp00=
   file:
-  - "$TRAVIS_BUILD_DIR/cafematinal-release-unsigned.apk"
-  - "$TRAVIS_BUILD_DIR/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk"
+  #- "$TRAVIS_BUILD_DIR/cafematinal-release-unsigned.apk"
+  #- "$TRAVIS_BUILD_DIR/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk"
   - "$TRAVIS_BUILD_DIR/cafematinal_app.apk"
-  - "$TRAVIS_BUILD_DIR/test_app.apk"
+  #- "$TRAVIS_BUILD_DIR/test_app.apk"
   skip_cleanup: true
   on:
     repo: BrightSoftwares/cafe_matinal
